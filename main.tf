@@ -31,7 +31,3 @@ module "ec2_instance" {
     Environment = "dev"
   }
 }
-
-variable "aws_region" {
-  default = "eu-north-1"
-}
