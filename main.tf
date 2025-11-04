@@ -15,7 +15,7 @@ provider "aws" {
 # Create key pair from your public key
 resource "aws_key_pair" "jenkins_key" {
   key_name   = "Ec2_key"
-  public_key = file("E:/jenkins/Keys/Ec2.Key.pub")  # Path to your .pub file
+  public_key = file("${path.module}/Keys/Ec2.Key.pub")  # Path to your .pub file
 }
 
 module "ec2_instance" {
