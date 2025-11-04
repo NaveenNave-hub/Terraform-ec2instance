@@ -17,7 +17,7 @@ module "ec2_instance" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   name = "naveen-git-single-instance"
   ami = "ami-055e4d03ab1de5def"
-  instance_type = "t2.micro"
+  instance_type = "t3.micro"
   key_name      = "Jenkins_Node"
   monitoring    = true
   subnet_id     = "subnet-02bf49878ba2ee6c0"
