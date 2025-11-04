@@ -12,11 +12,10 @@ provider "aws" {
   region = var.aws_region
 }
 
+# Create key pair from your public key
 resource "aws_key_pair" "jenkins_key" {
   key_name   = "Ec2_key"
-  public_key = file("E:/jenkins/Keys/Ec2_Key.pub")  # Use forward slashes
-}
-
+  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC..."  # full content of your .pub file
 }
 
 module "ec2_instance" {
@@ -31,4 +30,8 @@ module "ec2_instance" {
     Terraform   = "true"
     Environment = "dev"
   }
+}
+
+variable "aws_region" {
+  default = "eu-north-1"
 }
