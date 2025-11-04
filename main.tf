@@ -1,0 +1,30 @@
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 6.0"
+    }
+  }
+
+  required_version = ">= 1.5.7"
+}
+
+provider "aws" {
+  region = "${var.aws_region}"
+}
+
+module "ec2_instance" {
+  source  = "terraform-aws-modules/ec2-instance/aws"
+  name = "naveen-git-single-instance"
+  ami = "ami-055e4d03ab1de5def"
+  instance_type = "t2.micro"
+  key_name      = "Jenkins_Node"
+  monitoring    = true
+  subnet_id     = "subnet-02bf49878ba2ee6c0"
+
+  tags = {
+    Terraform   = "true"
+    Environment = "dev"
+  }
+}
+
