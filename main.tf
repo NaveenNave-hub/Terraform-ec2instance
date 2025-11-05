@@ -15,13 +15,13 @@ provider "aws" {
 module "ec2_instance" {
   source        = "terraform-aws-modules/ec2-instance/aws"
   name          = "naveen-instance"
-  ami           = "ami-05f072e8f02368216"
-  instance_type = "t3.micro"
+  ami           = var.ami_id
+  instance_type = var.instance_type
 
-  # ✅ Use existing AWS key pair
+  # Using existing AWS key pair
   key_name      = "Ec2_key"
 
-  subnet_id     = "subnet-02bf49878ba2ee6c0"
+  subnet_id     = var.subnet_id
 
   tags = {
     Terraform   = "true"
