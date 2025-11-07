@@ -1,11 +1,12 @@
 pipeline {
     agent any
+
     tools {
-        terraform 'Terraform'
+        terraform 'Terraform' // Make sure Terraform is installed and configured in Jenkins tools
     }
 
     environment {
-        AWS_DEFAULT_REGION = 'eu-north-1'
+        AWS_DEFAULT_REGION = 'eu-north-1' // Set your AWS region
     }
 
     parameters {
@@ -17,6 +18,7 @@ pipeline {
     }
 
     stages {
+
         stage('Checkout Code') {
             steps {
                 git branch: 'main', url: 'https://github.com/NaveenNave-hub/Terraform-ec2instance.git'
@@ -26,7 +28,7 @@ pipeline {
         stage('Terraform Init') {
             when { expression { params.RUN_STAGE == 'apply' || params.RUN_STAGE == 'destroy' } }
             steps {
-                withAWS(credentials: 'aws-credentials', region: 'eu-north-1') {
+                withAWS(credentials: 'aws-jenkins-iam', region: 'eu-north-1') {
                     bat 'terraform init'
                 }
             }
@@ -35,7 +37,7 @@ pipeline {
         stage('Terraform Plan') {
             when { expression { params.RUN_STAGE == 'apply' } }
             steps {
-                withAWS(credentials: 'aws-credentials', region: 'eu-north-1') {
+                withAWS(credentials: 'aws-jenkins-iam', region: 'eu-north-1') {
                     bat 'terraform plan -out=tfplan'
                 }
             }
@@ -44,7 +46,7 @@ pipeline {
         stage('Terraform Apply') {
             when { expression { params.RUN_STAGE == 'apply' } }
             steps {
-                withAWS(credentials: 'aws-credentials', region: 'eu-north-1') {
+                withAWS(credentials: 'aws-jenkins-iam', region: 'eu-north-1') {
                     bat 'terraform apply -auto-approve tfplan'
                 }
             }
@@ -53,10 +55,11 @@ pipeline {
         stage('Terraform Destroy') {
             when { expression { params.RUN_STAGE == 'destroy' } }
             steps {
-                withAWS(credentials: 'aws-credentials', region: 'eu-north-1') {
+                withAWS(credentials: 'aws-jenkins-iam', region: 'eu-north-1') {
                     bat 'terraform destroy -auto-approve'
                 }
             }
         }
     }
+
 }
