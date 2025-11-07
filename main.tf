@@ -19,7 +19,7 @@ module "ec2_instance" {
   instance_type = "t3.micro"
 
   # ✅ Use existing AWS key pair
-  key_name      = "Ec2_key"
+  key_name      = "Jenkins_Key"
 
   subnet_id     = "subnet-02bf49878ba2ee6c0"
 
