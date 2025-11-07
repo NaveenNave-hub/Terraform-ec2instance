@@ -15,7 +15,7 @@ provider "aws" {
 module "ec2_instance" {
   source        = "terraform-aws-modules/ec2-instance/aws"
   name          = "naveen-instance"
-  ami           = "ami-05f072e8f02368216"
+  ami           = "ami-07fb0a5bf9ae299a4"
   instance_type = "t3.micro"
 
   # ✅ Use existing AWS key pair
