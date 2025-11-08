@@ -14,7 +14,7 @@ provider "aws" {
 
 module "ec2_instance" {
   source        = "terraform-aws-modules/ec2-instance/aws"
-  name          = "naveen-instance"
+  name          = "naveen-Demo-Ec2"
   ami           = "ami-07fb0a5bf9ae299a4"
   instance_type = "t3.micro"
 
